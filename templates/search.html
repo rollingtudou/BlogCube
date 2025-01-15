@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="search-results">
+    <h1>搜索结果: "{{ query }}"</h1>
+    
+    {% if articles %}
+        <div class="articles">
+            {% for article in articles %}
+            <div class="article-preview">
+                <h2><a href="{{ url_for('article', article_id=article.id) }}">{{ article.title }}</a></h2>
+                <div class="article-meta">
+                    <span><i class="fas fa-user"></i> {{ article.author.username }}</span>
+                    <span><i class="fas fa-clock"></i> {{ article.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
+                    <span><i class="fas fa-eye"></i> {{ article.views }}</span>
+                    <span><i class="fas fa-comments"></i> {{ article.comments|length }}</span>
+                </div>
+                <div class="article-summary">
+                    {{ article.content[:200] }}...
+                </div>
+                <a href="{{ url_for('article', article_id=article.id) }}" class="read-more">
+                    阅读更多 <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="no-results">
+            <i class="fas fa-search fa-3x"></i>
+            <p>没有找到相关文章</p>
+            <a href="{{ url_for('home') }}" class="btn">返回首页</a>
+        </div>
+    {% endif %}
+</div>
+
+<style>
+.search-results h1 {
+    margin-bottom: 2rem;
+    color: var(--text-color);
+}
+
+.articles {
+    display: grid;
+    gap: 2rem;
+}
+
+.article-preview {
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.article-preview:hover {
+    transform: translateY(-3px);
+}
+
+.article-meta {
+    display: flex;
+    gap: 1rem;
+    color: var(--dark-gray);
+    margin: 1rem 0;
+    font-size: 0.9rem;
+}
+
+.article-summary {
+    color: #666;
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+}
+
+.read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: gap 0.3s;
+}
+
+.read-more:hover {
+    gap: 0.8rem;
+}
+
+.no-results {
+    text-align: center;
+    padding: 4rem 0;
+    color: var(--dark-gray);
+}
+
+.no-results i {
+    margin-bottom: 1rem;
+}
+
+.no-results p {
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+}
+</style>
+{% endblock %} 

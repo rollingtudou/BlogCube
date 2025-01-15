@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="profile">
+    <h1>{{ user.username }}的个人中心</h1>
+    <p>邮箱：{{ user.email }}</p>
+    
+    <h2>我的文章</h2>
+    <div class="articles">
+        {% for article in articles %}
+        <div class="article-preview">
+            <h3><a href="{{ url_for('article', article_id=article.id) }}">{{ article.title }}</a></h3>
+            <p class="meta">
+                发布于：{{ article.created_at.strftime('%Y-%m-%d %H:%M') }} | 
+                浏览：{{ article.views }} | 
+                点赞：{{ article.likes }}
+            </p>
+        </div>
+        {% else %}
+        <p>还没有发布过文章</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} 

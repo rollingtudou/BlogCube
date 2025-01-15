@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="archives">
+    <h1>文章归档</h1>
+    
+    {% for archive in archives %}
+    <div class="archive-section">
+        <h2>{{ archive.year }}年{{ archive.month }}月 ({{ archive.count }}篇)</h2>
+        <ul>
+            {% for article in archive.articles %}
+            <li>
+                <span class="date">{{ article.created_at.strftime('%Y-%m-%d') }}</span>
+                <a href="{{ url_for('article', article_id=article.id) }}">{{ article.title }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+</div>
+
+<style>
+.archives {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.archive-section {
+    margin-bottom: 30px;
+}
+.archive-section h2 {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+.archive-section ul {
+    list-style: none;
+    padding: 0;
+}
+.archive-section li {
+    margin-bottom: 10px;
+}
+.date {
+    color: #666;
+    margin-right: 15px;
+}
+</style>
+{% endblock %} 

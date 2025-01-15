@@ -1,0 +1,22 @@
+lightweight-blog/
+├── app/
+│   ├── __init__.py
+│   ├── models.py
+│   ├── routes.py
+│   └── utils.py
+├── static/
+│   ├── css/
+│   └── js/
+├── templates/
+│   ├── base.html
+│   ├── home.html
+│   └── ...
+├── tests/
+│   └── __init__.py
+├── .gitignore
+├── LICENSE
+├── README.md
+├── CONTRIBUTING.md
+├── requirements.txt
+├── config.py
+└── run.py 
